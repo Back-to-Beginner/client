@@ -4,27 +4,39 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 
-const Mypage = (props) => {
-    const dispatch = useDispatch();
-    const [id, setId] = React.useState("");
-    const [pw, setPw] = React.useState("");
-  
-    const changeId = (e) => {
-      console.log(e.target.value);
-      setId(e.target.value);
-    };
+const Mypage = () => {
+    
+    
     return (
         <React.Fragment>
           
               <h1 align="center">마이페이지</h1>
               <Div>
+                <h1 align="center">사용자 정보</h1>
+              <P>아이디 : </P>
               <P>닉네임 : </P>
               <P>생년월일 : </P>
-              <P>아이디 : </P>
-       
+              <P>주소 : </P>
+              <Button
+            onClick={() => {
+              history.push("/changeInfo");
+            }}
+          >
+            정보수정
+          </Button>
+          <Button
+            onClick={() => {
+              history.push("/withdraw");
+            }}
+          >
+            회원탈퇴
+          </Button>
               </Div>
+            
           
         </React.Fragment>
+        
+        
     )    
 }
 export default Mypage;
