@@ -31,7 +31,7 @@ const Login = (props) => {
   return (
     <React.Fragment>
       <Div>
-        <h1> 로그인을 해주세요.</h1>
+        <h1 align="center"> 로그인</h1>
         <P>아이디</P>
         <Input onChange={changeId}></Input>
         <P>비밀번호</P>
@@ -46,6 +46,7 @@ const Login = (props) => {
           <Button onClick={login}>로그인하기</Button>
           <Button
             onClick={() => {
+                          
               history.push("/signup");
             }}
           >
