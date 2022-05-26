@@ -3,17 +3,21 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 const Signup = (props) => {
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
+  const [birth, setBirth] = React.useState("");
+  const [add, setAdd] = React.useState("");
   const [user_name, setUserName] = React.useState("");
+
   const signup = () => {
     if (id === "" || pwd === "" || user_name === "") {
       window.alert("아이디, 비밀번호가 공란입니다.");
       return;
     }
-    console.log(id, pwd, user_name);
+    console.log(id, pwd, user_name, birth, add);
     dispatch(userActions.signupDB(id, pwd, user_name));
     console.log("test 로그인  완료");
   };
@@ -21,13 +25,13 @@ const Signup = (props) => {
     <React.Fragment>
       <Div>
         <h1 align='center'> 회원가입</h1>
-        <P>아이디</P>
+        <P>메일</P>
         <Input
           onChange={(e) => {
             setId(e.target.value);
           }}
         ></Input>
-        <P>닉네임</P>
+        <P>이름</P>
         <Input
           onChange={(e) => {
             setUserName(e.target.value);
@@ -42,13 +46,13 @@ const Signup = (props) => {
         <P>생년월일</P>
         <Input
           onChange={(e) => {
-            setPwd(e.target.value);
+            setBirth(e.target.value);
           }}
         ></Input>
         <P>주소</P>
         <Input
           onChange={(e) => {
-            setPwd(e.target.value);
+            setAdd(e.target.value);
           }}
         ></Input>
 
@@ -62,6 +66,7 @@ const Signup = (props) => {
           <Button onClick={signup}>회원가입하기</Button>
           <Button
             onClick={() => {
+              
               history.push("/login");
             }}
           >
