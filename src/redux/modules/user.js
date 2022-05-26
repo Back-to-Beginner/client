@@ -41,7 +41,7 @@ const loginDB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://54.180.112.53:8080/api/authenticate",
+      url: "http:/localhost:8080/api/authenticate",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
@@ -76,18 +76,20 @@ const signupDB = (id, pwd, nickname) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://54.180.112.53:8080/api/signup",
+      url: 'http://localhost:8080/api/v1/users',
       data: {
-        username: id,
-        nickname: nickname,
-        password: pwd,
+        email: id,
+        name: nickname,
+        pw: pwd,
       },
+
     })
       .then((res) => {
         //console 찍어보기 res
         console.log("이건 signupDB 함수야!");
         window.location.href = "/";
         window.alert("회원가입을 축하드립니다!");
+        console.log(res);
       })
       .catch((err) => {
         window.alert("회원가입에 실패했습니다", err);
