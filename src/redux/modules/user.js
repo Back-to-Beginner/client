@@ -40,15 +40,15 @@ const loginAction = (user) => {
 const loginDB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
     axios({
-      method: "POST",
-      url: "http:/localhost:8080/api/authenticate",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
+      method: "GET",
+      url: "/api/v1/users",
+      // headers: {
+      //  Accept: "application/json",
+      //  "Content-Type": "application/json;charset=UTF-8",
+      // },
       data: {
-        username: id,
-        password: pwd,
+        email: id,
+        pw: pwd,
       },
     })
       .then((res) => {
@@ -76,7 +76,7 @@ const signupDB = (id, pwd, nickname) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: 'http://localhost:8080/api/v1/users',
+      url: "/api/v1/users",
       data: {
         email: id,
         name: nickname,
