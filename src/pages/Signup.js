@@ -19,7 +19,7 @@ const Signup = (props) => {
     }
     console.log(id, pwd, user_name, birth, add);
     dispatch(userActions.signupDB(id, pwd, user_name));
-    console.log("test 로그인  완료");
+    console.log("test 회원가입 완료");
   };
   return (
     <React.Fragment>
