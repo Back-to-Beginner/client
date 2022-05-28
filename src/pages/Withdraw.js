@@ -24,8 +24,8 @@ const Widhtraw = (props) => {
       return;
     }
     console.log(id, pw);
-    dispatch(userActions.loginDB(id, pw));
-    console.log("success");
+    dispatch(userActions.WithdrawDB(id, pw));
+    console.log("회원탈퇴 완료");
   };
 
   return (
