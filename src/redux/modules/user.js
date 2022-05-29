@@ -41,7 +41,7 @@ const loginDB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "/api/v1/users",
+      url: "/api/v1/users/login",
       // headers: {
       //  Accept: "application/json",
       //  "Content-Type": "application/json;charset=UTF-8",
@@ -57,8 +57,8 @@ const loginDB = (id, pwd) => {
         sessionStorage.setItem("token", res.data.token);
         dispatch(
           setUser({
-            username: id,
-            password: pwd,
+            email: id, /*username*/
+            pw: pwd,  /*password*/
           })
         );
         history.push("/");
