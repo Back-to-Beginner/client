@@ -38,13 +38,15 @@ const loginAction = (user) => {
 };
 
 const loginDB = (id, pwd) => {
+  console.log(id);
+  console.log(pwd);
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "/api/v1/users/login",
+      url: "api/v1/users/login",
       // headers: {
-      //  Accept: "application/json",
-      //  "Content-Type": "application/json;charset=UTF-8",
+      //   Accept: "application/json",
+      //   "Content-Type": "application/json;charset=UTF-8",
       // },
       data: {
         email: id,
@@ -52,15 +54,15 @@ const loginDB = (id, pwd) => {
       },
     })
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("nick", JSON.stringify(`${id}`));
-        sessionStorage.setItem("token", res.data.token);
-        dispatch(
-          setUser({
-            email: id, /*username*/
-            pw: pwd,  /*password*/
-          })
-        );
+         console.log(res);
+         localStorage.setItem("nick", JSON.stringify(`${id}`));
+         sessionStorage.setItem("token", res.data.token);
+         dispatch(
+           setUser({
+             email: id, /*username*/
+             pw: pwd,   /*password*/
+           })
+         );
         history.push("/");
         window.alert("정상적으로 로그인 되었습니다!");
       })
@@ -76,13 +78,12 @@ const signupDB = (id, pwd, nickname) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "/api/v1/users",
+      url: "api/v1/users",
       data: {
         email: id,
         name: nickname,
         pw: pwd,
       },
-
     })
       .then((res) => {
         //console 찍어보기 res
