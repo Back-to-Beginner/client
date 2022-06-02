@@ -16,36 +16,51 @@ const initialState = {
   post: [],
 };
 
-const initialPost = {
-  daangnProductId: "0",
-  title: "실내 자전거",
-  img:
-    "https://dnvefa72aowie.cloudfront.net/origin/article/202104/bce02f7c25d41ea2f758c3322de4596b9768b7fc8822ed6ab1a184fd232c50ce.webp?q=82&s=300x300&t=crop",
-  price: "10,000원",
-  region: "경기도 용인시 수지구 죽전동",
-  like: "관심:3",
-  chat: "채팅:5",
-};
-
-const getPostDB = (text = "") => {
+// const initialPost = {
+//   daangnProductId: "0",
+//   title: "실내 자전거",
+//   img:
+//     "https://dnvefa72aowie.cloudfront.net/origin/article/202104/bce02f7c25d41ea2f758c3322de4596b9768b7fc8822ed6ab1a184fd232c50ce.webp?q=82&s=300x300&t=crop",
+//   price: "10,000원",
+//   region: "경기도 용인시 수지구 죽전동",
+//   like: "관심:3",
+//   chat: "채팅:5",
+// };
+// getPostDB, (text = "")
+const getPostTripDB = (title, bd, ed, tNL) => {
   return function (dispatch, getState, { history }) {
     let post_list = [];
-    if (text === "") {
+    // if (text === "") {
       axios({
-        method: "get",
-        url: "http://54.180.112.53:8080/api/hot_articles",
-      }).then((docs) => {
+        method: "POST",
+        url: "/api/v1/trips",
+        data: {
+          // userId : 0,
+          title : title,
+          beginDate : bd,
+          endDate : ed,
+          // fullCost : 0,
+          tagNameList : {
+            tNL
+          } 
+        }
+      })
+      .then((docs) => {
         // docs=api를 가져온 값
         // console.log(docs.data);
         const post_list = docs.data;
         // console.log(post_list);
+        window.alert("게시물 등록 완료");
 
         dispatch(setPost(post_list));
+      })
+      .catch((err) => {
+        window.alert("게시물 등록 실패", err);
       });
-    } else {
+    // } else {
       axios({
-        method: "get",
-        url: `http://54.180.112.53:8080/api/region/${text}`,
+        method: "POST",
+        // url: `http://54.180.112.53:8080/api/region/${text}`,
       }).then((docs) => {
         // docs=api를 가져온 값
         // console.log(docs.data);
@@ -53,18 +68,46 @@ const getPostDB = (text = "") => {
         // console.log(post_list);
         dispatch(setPost(post_list));
       });
-    }
+    // }
   };
 };
 
-const getOnePostDB = (daangnProductId) => {
+const getOnePostDB = (momentId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "get",
-      url: `http://54.180.112.53:8080/api/hot_articles/${daangnProductId}`,
+      url: "/api/v1/trips/${momentId}",
+      
     }).then((docs) => {
       const onePost = docs.data;
       dispatch(getPost(onePost));
+    });
+  };
+};
+
+const getPostMomentDB = (l_id, t_id, moment, ct) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "post",
+      url: "/api/v1/moments",
+      data: {
+        location_id : l_id, //0
+        trip_id : t_id, //0
+        content : moment,
+        Cost : ct, // 0
+      }
+    })
+    .then((docs) => {
+      // docs=api를 가져온 값
+      // console.log(docs.data);
+      const post_list = docs.data;
+      // console.log(post_list);
+      window.alert("본문 등록 완료");
+
+      dispatch(setPost(post_list));
+    })
+    .catch((err) => {
+      window.alert("본문 등록 실패", err);
     });
   };
 };
@@ -87,8 +130,9 @@ export default handleActions(
 const actionCreators = {
   setPost,
   addPost,
-  getPostDB,
+  getPostTripDB,
   getOnePostDB,
+  getPostMomentDB,
 };
 
 export { actionCreators };
