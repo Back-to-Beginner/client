@@ -71,8 +71,8 @@ const getPostTripDB = (title, bd, ed, tNL) => {
     // }
   };
 };
-
-const getOnePostDB = (momentId) => {
+                                     // 우리 API에 맞게 수정해야 함. 그런데 형식이 많이 다름.
+const getOnePostDB = (momentId) => { // 게시판에 게시물 목록 보여주기. 당근마켓 기반 작성
   return function (dispatch, getState, { history }) {
     axios({
       method: "get",
