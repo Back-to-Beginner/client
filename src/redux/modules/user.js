@@ -42,7 +42,7 @@ const loginDB = (id, pwd) => {
   console.log(pwd);
   return function (dispatch, getState, { history }) {
     axios({
-      method: "GET",
+      method: "POST",
       url: "api/v1/users/login",
       // headers: {
       //   Accept: "application/json",
