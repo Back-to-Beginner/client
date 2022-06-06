@@ -45,10 +45,10 @@ const loginDB = (id, pwd) => {
     axios({
       method: "post",
       url: "api/v1/users/login",
-         headers: {
-           Accept: "application/json",
-           "Content-Type": "application/json;charset=UTF-8",
-         },
+        //  headers: {
+        //    Accept: "application/json",
+        //    "Content-Type": "application/json;charset=UTF-8",
+        //  },
       data: {
         email: id,
         pw: pwd,
@@ -56,8 +56,10 @@ const loginDB = (id, pwd) => {
     })
       .then((res) => {
          console.log(res);
-        // localStorage.setItem("nick", JSON.stringify(`${id}`));
-        sessionStorage.setItem("id", res.data.id);
+        localStorage.setItem("id", JSON.stringify(`${id}`));
+        sessionStorage.setItem("token", res.data.token); //res.data.id
+        console.log(localStorage.getItem("id"));
+        console.log(sessionStorage.getItem("id"));
         dispatch(
           setUser({
              email: id, /*username*/
@@ -100,10 +102,10 @@ const signupDB = (id, pwd, nickname) => {
   };
 };
 
-const loginCheckDB = (is_session) => {
+const loginCheckDB = (is_local) => {
   return function (dispatch, getState, { history }) {
-    if (is_session) {
-      dispatch(setUser({ email: localStorage.getItem("id") })); //nickname
+    if (is_local) { //is_session
+      dispatch(setUser({ id: localStorage.getItem("id") })); //nickname
     } else {
       dispatch(logOut());
     }
