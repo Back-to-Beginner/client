@@ -74,6 +74,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
      dispatch(postActions.getPostTripDB(title, bd, ed, fc));
      dispatch(postActions.getPostMomentDB(l_id, t_id, moment, ct));
      
+     console.log(localStorage.getItem("id"));
      console.log("등록 성공");
    };
  
@@ -82,8 +83,8 @@ import { actionCreators as postActions } from "../redux/modules/post";
         <React.Fragment>
           <Div>
             <h1 align="center"> 여정 작성</h1>
-            {/* <P>작성자 아이디</P>
-            <Input is_session></Input> */}
+            <P>작성자 아이디</P>
+            
             {/* getPostTripDB */}
              <P>제목</P>
             <Input onChange={changeTitle}></Input>
