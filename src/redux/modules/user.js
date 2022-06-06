@@ -5,11 +5,12 @@ import { produce } from "immer";
 import axios from "axios";
 
 // actions
-//const LOG_IN = "LOG_IN";
+// const LOG_IN = "LOG_IN";
 const SIGN_UP = "SIGN_UP";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const SET_USER = "SET_USER";
+
 
 // initialState
 
@@ -42,12 +43,12 @@ const loginDB = (id, pwd) => {
   console.log(pwd);
   return function (dispatch, getState, { history }) {
     axios({
-      method: "POST",
+      method: "post",
       url: "api/v1/users/login",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json;charset=UTF-8",
-      // },
+         headers: {
+           Accept: "application/json",
+           "Content-Type": "application/json;charset=UTF-8",
+         },
       data: {
         email: id,
         pw: pwd,
@@ -55,14 +56,15 @@ const loginDB = (id, pwd) => {
     })
       .then((res) => {
          console.log(res);
-         localStorage.setItem("nick", JSON.stringify(`${id}`));
-         sessionStorage.setItem("token", res.data.token);
-         dispatch(
-           setUser({
+        // localStorage.setItem("nick", JSON.stringify(`${id}`));
+        sessionStorage.setItem("id", res.data.id);
+        dispatch(
+          setUser({
              email: id, /*username*/
              pw: pwd,   /*password*/
            })
          );
+         
         history.push("/");
         window.alert("정상적으로 로그인 되었습니다!");
       })
@@ -101,7 +103,7 @@ const signupDB = (id, pwd, nickname) => {
 const loginCheckDB = (is_session) => {
   return function (dispatch, getState, { history }) {
     if (is_session) {
-      dispatch(setUser({ nickname: localStorage.getItem("nickname") }));
+      dispatch(setUser({ email: localStorage.getItem("id") })); //nickname
     } else {
       dispatch(logOut());
     }
@@ -119,7 +121,7 @@ const logOutDB = () => {
 
 // actionCreators
 
-//const logIn = createAction(LOG_IN, (user) => ({ user }));
+// const logIn = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const setUser = createAction(SET_USER, (user) => ({ user }));
@@ -155,7 +157,7 @@ export default handleActions(
 // action creator export
 
 const actionCreators = {
-  //logIn,
+  // logIn,
   loginAction,
   logOut,
   signUp,
