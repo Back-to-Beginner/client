@@ -55,11 +55,12 @@ const loginDB = (id, pwd) => {
       },
     })
       .then((res) => {
-         console.log(res);
-        localStorage.setItem("id", JSON.stringify(`${id}`));
-        sessionStorage.setItem("token", res.data.token); //res.data.id
-        console.log(localStorage.getItem("id"));
-        console.log(sessionStorage.getItem("id"));
+        console.log(res);
+        console.log(res.data.data.id);
+        localStorage.setItem("id", res.data.data.id) //res.data.id
+        console.log(localStorage.getItem(res.data.data.id)); //"id"
+        // console.log(sessionStorage.getItem("id"));
+        console.log(localStorage.id);
         dispatch(
           setUser({
              email: id, /*username*/
@@ -105,7 +106,7 @@ const signupDB = (id, pwd, nickname) => {
 const loginCheckDB = (is_local) => {
   return function (dispatch, getState, { history }) {
     if (is_local) { //is_session
-      dispatch(setUser({ id: localStorage.getItem("id") })); //nickname
+      dispatch(setUser({ id: localStorage.getItem("id") })); //nickname "id"
     } else {
       dispatch(logOut());
     }
