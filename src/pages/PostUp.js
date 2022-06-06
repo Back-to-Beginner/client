@@ -3,16 +3,14 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
+
 
  const Postup = (props) => {
    const dispatch = useDispatch();
-   const [is_session, setUser] = React.useState("");
-   const [uid, setUserId] = React.useState(""); // ?
    const [title, setTitle] = React.useState("");
    const [bd, setBd] = React.useState("");
    const [ed, setEd] = React.useState("");
-   const [fc, setFullCost] = React.useState(""); // ?
+   const [fc, setFullCost] = React.useState(""); 
    const [tNL, setTNL] = React.useState("");
 
    const [l_id, setlocation_id] = React.useState("");
@@ -20,22 +18,18 @@ import { actionCreators as userActions } from "../redux/modules/user";
    const [moment, setMoment] = React.useState("");
    const [ct, setCost] = React.useState("");
 
-   const changeUserId = (e) => {
-    console.log(e.target.value);
-    setUserId(e.target.value);
-  };
-
-   const changeTitle = (e) => {
+   
+   const changeTitle = (e) => { //제목
      console.log(e.target.value);
      setTitle(e.target.value);
    };
 
-   const changeBd = (e) => {
+   const changeBd = (e) => { // 여행시작날짜
      console.log(e.target.value);
      setBd(e.target.value);
    };
 
-   const changeEd = (e) => {
+   const changeEd = (e) => { // 여행종료날짜
      console.log(e.target.value);
      setEd(e.target.value);
    };
@@ -55,32 +49,31 @@ import { actionCreators as userActions } from "../redux/modules/user";
      setTrip_id(e.target.value);
    };
 
-   const changeMoment = (e) => {
+   const changeMoment = (e) => { // 게시물 본문
      console.log(e.target.value);
      setMoment(e.target.value);
    };
 
-   const changeFullCost = (e) => {
+   const changeFullCost = (e) => { // 여행 총 경비
      console.log(e.target.value);
      setFullCost(e.target.value);
    };
 
-   const changeCost = (e) => {
+   const changeCost = (e) => { // 항공비를 제외한 경비
     console.log(e.target.value);
     setCost(e.target.value);
   };
 
-   const postUp = () => {
+   const postUp = () => { // 제목이 비어있을 경우
      if (title=== "") {
        window.alert("제목이 비어있습니다.");
        return;
      }
      console.log(title, bd, ed, tNL);
      console.log(l_id, t_id, moment, ct);
-     dispatch(postActions.getPostTripDB(uid, title, bd, ed, fc));
+     dispatch(postActions.getPostTripDB(title, bd, ed, fc));
      dispatch(postActions.getPostMomentDB(l_id, t_id, moment, ct));
-     dispatch(userActions.loginCheckDB(is_session));
-     dispatch(setUser({ nickname: localStorage.getItem("nickname") }));
+     
      console.log("등록 성공");
    };
  
@@ -89,8 +82,9 @@ import { actionCreators as userActions } from "../redux/modules/user";
         <React.Fragment>
           <Div>
             <h1 align="center"> 여정 작성</h1>
-            <P>작성자 아이디</P>
-            <Input onChange={changeUserId}></Input>
+            {/* <P>작성자 아이디</P>
+            <Input is_session></Input> */}
+            {/* getPostTripDB */}
              <P>제목</P>
             <Input onChange={changeTitle}></Input>
             <P>여행시작일자</P>
@@ -99,7 +93,8 @@ import { actionCreators as userActions } from "../redux/modules/user";
             <Input onChange={changeEd}></Input>
             <P>총 경비</P>
             <Input onChange={changeFullCost}></Input>
-            <P>여정 경비</P>
+            {/* getPostMomentDB */}
+            <P>항공비 제외 경비</P>
             <Input onChange={changeCost}></Input>
             <P>본문</P>
             <Input2 onChange={changeMoment}></Input2> 
@@ -128,35 +123,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
           >
             게시판으로 이동
           </Button>
-           <Div className='Postup'>
-             <form action="/api/v1/trips" method="RequestMethod.POST">
-               <div>
-                 <P>제목</P>
-                 <Input type='text' id='title' name='title'
-                 paceholder='제목'/>
-                </div>
-                <div>
-                  <P>여행 시작일자</P> &nbsp;&nbsp;
-                  <Input type="text" name="beginDate" id='beginDate'/>
-                  <P>여행 종료일자</P> &nbsp;&nbsp;
-                  <Input type="text" name="endDate" id='endDate'/>
-                  <P>태그</P>
-                  <Input type="text" name="tagNameList" id='tagNameList'/>
-                </div>
-                
-             </form>
-             <form action="/api/v1/moments" method="post">
-               <div>
-                 <P>경비</P>
-                 <Input type="text" name="cost" id="cost"></Input>
-                 <P>본문</P>
-                 <Input2 type="text" name='content'></Input2>
-               </div>
-               <div id="submit_btn">
-                 <Button type="submit">등록</Button>
-               </div>
-             </form>
-           </Div>   
+
             <div
               style={{
                 display: "flex",
