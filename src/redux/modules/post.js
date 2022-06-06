@@ -40,7 +40,7 @@ const getPostTripDB = (title, bd, ed, fc) => {
         method: "POST",
         url: "/api/v1/trips",
         data: {
-          userId : sessionStorage.getItem("id"),
+          userId : localStorage.getItem("id"), //session
           title : title,
           beginDate : bd,
           endDate : ed,
@@ -51,6 +51,7 @@ const getPostTripDB = (title, bd, ed, fc) => {
       })
       .then((docs) => {
         // docs=api를 가져온 값
+        
         console.log(docs.data);
         const post_list = docs.data;
         // console.log(post_list);
