@@ -29,15 +29,18 @@ const initialState = {
 // getPostDB, (text = "")
 
 // 게시물 등록
-const getPostTripDB = (uid, title, bd, ed, fc) => {
+
+const getPostTripDB = (title, bd, ed, fc) => {
+  
   return function (dispatch, getState, { history }) {
+    
     let post_list = [];
     // if (text === "") {
       axios({
         method: "POST",
         url: "/api/v1/trips",
         data: {
-          userId : uid,
+          userId : sessionStorage.getItem("id"),
           title : title,
           beginDate : bd,
           endDate : ed,
@@ -51,6 +54,7 @@ const getPostTripDB = (uid, title, bd, ed, fc) => {
         console.log(docs.data);
         const post_list = docs.data;
         // console.log(post_list);
+        history.push("/postList");
         window.alert("게시물 등록 완료");
 
         dispatch(setPost(post_list));
@@ -59,17 +63,17 @@ const getPostTripDB = (uid, title, bd, ed, fc) => {
         window.alert("게시물 등록 실패", err);
       });
     // } else {
-      axios({
-        method: "POST",
-        // url: `http://54.180.112.53:8080/api/region/${text}`,
-      }).then((docs) => {
-        // docs=api를 가져온 값
-        // console.log(docs.data);
-        const post_list = docs.data;
-        // console.log(post_list);
-        dispatch(setPost(post_list));
-      });
-    // }
+    //    axios({
+    //      method: "POST",
+    //      // url: `http://54.180.112.53:8080/api/region/${text}`,
+    //    }).then((docs) => {
+    //      // docs=api를 가져온 값
+    //      // console.log(docs.data);
+    //      const post_list = docs.data;
+    //      // console.log(post_list);
+    //      dispatch(setPost(post_list));
+    //    });
+    // // }
   };
 };
 
