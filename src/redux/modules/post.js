@@ -27,7 +27,9 @@ const initialState = {
 //   chat: "채팅:5",
 // };
 // getPostDB, (text = "")
-const getPostTripDB = (title, bd, ed, tNL) => {
+
+// 게시물 등록
+const getPostTripDB = (uid, title, bd, ed, fc) => {
   return function (dispatch, getState, { history }) {
     let post_list = [];
     // if (text === "") {
@@ -35,19 +37,18 @@ const getPostTripDB = (title, bd, ed, tNL) => {
         method: "POST",
         url: "/api/v1/trips",
         data: {
-          // userId : 0,
+          userId : uid,
           title : title,
           beginDate : bd,
           endDate : ed,
-          // fullCost : 0,
-          tagNameList : {
-            tNL
-          } 
+          fullCost : fc,
+          
+          
         }
       })
       .then((docs) => {
         // docs=api를 가져온 값
-        // console.log(docs.data);
+        console.log(docs.data);
         const post_list = docs.data;
         // console.log(post_list);
         window.alert("게시물 등록 완료");
@@ -71,8 +72,9 @@ const getPostTripDB = (title, bd, ed, tNL) => {
     // }
   };
 };
-                                     // 우리 API에 맞게 수정해야 함. 그런데 형식이 많이 다름.
-const getOnePostDB = (momentId) => { // 게시판에 게시물 목록 보여주기. 당근마켓 기반 작성
+
+// 게시물 보여주기
+const getOnePostDB = (momentId) => { // 게시판에 게시물 목록 보여주기, PostList에 작성
   return function (dispatch, getState, { history }) {
     axios({
       method: "get",
@@ -85,6 +87,7 @@ const getOnePostDB = (momentId) => { // 게시판에 게시물 목록 보여주�
   };
 };
 
+// 게시글 본문
 const getPostMomentDB = (l_id, t_id, moment, ct) => {
   return function (dispatch, getState, { history }) {
     axios({
