@@ -7,14 +7,15 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
  const Postup = (props) => {
    const dispatch = useDispatch();
-   const [title, setTitle] = React.useState("");
-   const [bd, setBd] = React.useState("");
-   const [ed, setEd] = React.useState("");
-   const [fc, setFullCost] = React.useState(""); 
-   const [tNL, setTNL] = React.useState("");
+   const [Title, setTitle] = React.useState("");
+   const [Region, setRegion] = React.useState("");
+   const [beginDate, setbeginDate] = React.useState("");
+   const [endDate, setendDate] = React.useState("");
+   const [fullCost, setFullCost] = React.useState(""); 
+  //  const [tNL, setTNL] = React.useState("");
 
-   const [l_id, setlocation_id] = React.useState("");
-   const [t_id, setTrip_id] = React.useState("");
+  const [l_id, setLocation_id] = React.useState("");
+  //  const [t_id, setTrip_id] = React.useState("");
    const [moment, setMoment] = React.useState("");
    const [ct, setCost] = React.useState("");
 
@@ -24,30 +25,35 @@ import { actionCreators as postActions } from "../redux/modules/post";
      setTitle(e.target.value);
    };
 
-   const changeBd = (e) => { // 여행시작날짜
+   const changeRegion = (e) => { //지역
+    console.log(e.target.value);
+    setRegion(e.target.value);
+  };
+
+   const changebeginDate = (e) => { // 여행시작날짜
      console.log(e.target.value);
-     setBd(e.target.value);
+     setbeginDate(e.target.value);
    };
 
-   const changeEd = (e) => { // 여행종료날짜
+   const changeendDate = (e) => { // 여행종료날짜
      console.log(e.target.value);
-     setEd(e.target.value);
+     setendDate(e.target.value);
    };
 
-   const changetNL = (e) => {
-     console.log(e.target.value);
-     setTNL(e.target.value);
-   };
+  //  const changetNL = (e) => {
+  //    console.log(e.target.value);
+  //    setTNL(e.target.value);
+  //  };
 
    const changeLocation_id = (e) => {
      console.log(e.target.value);
-     setlocation_id(e.target.value);
+     setLocation_id(e.target.value);
    };
 
-   const changeTrip_id = (e) => {
-     console.log(e.target.value);
-     setTrip_id(e.target.value);
-   };
+  //  const changeTrip_id = (e) => {
+  //    console.log(e.target.value);
+  //    setTrip_id(e.target.value);
+  //  };
 
    const changeMoment = (e) => { // 게시물 본문
      console.log(e.target.value);
@@ -61,18 +67,18 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
    const changeCost = (e) => { // 항공비를 제외한 경비
     console.log(e.target.value);
-    setCost(e.target.value);
+    setCost(parseInt(e.target.value, 10));
   };
 
    const postUp = () => { // 제목이 비어있을 경우
-     if (title=== "") {
+     if (Title=== "") {
        window.alert("제목이 비어있습니다.");
        return;
      }
-     console.log(title, bd, ed, tNL);
-     console.log(l_id, t_id, moment, ct);
-     dispatch(postActions.getPostTripDB(title, bd, ed, fc));
-     dispatch(postActions.getPostMomentDB(l_id, t_id, moment, ct));
+     console.log(Title, Region, beginDate, endDate, fullCost);
+     console.log(l_id, moment, ct);
+     dispatch(postActions.getPostTripDB(Title, Region, beginDate, endDate, fullCost));
+     dispatch(postActions.getPostMomentDB(l_id, moment, ct));
      
      console.log(localStorage.getItem("id"));
      console.log("등록 성공");
@@ -83,15 +89,17 @@ import { actionCreators as postActions } from "../redux/modules/post";
         <React.Fragment>
           <Div>
             <h1 align="center"> 여정 작성</h1>
-            <P>작성자 아이디</P>
+            
             
             {/* getPostTripDB */}
              <P>제목</P>
             <Input onChange={changeTitle}></Input>
+            <P>지역</P>
+            <Input onChange={changeRegion}></Input>
             <P>여행시작일자</P>
-            <Input onChange={changeBd}></Input>
+            <Input onChange={changebeginDate}></Input>
             <P>여행종료일자</P>
-            <Input onChange={changeEd}></Input>
+            <Input onChange={changeendDate}></Input>
             <P>총 경비</P>
             <Input onChange={changeFullCost}></Input>
             {/* getPostMomentDB */}
