@@ -30,37 +30,43 @@ const initialState = {
 
 // 게시물 등록
 
-const getPostTripDB = (title, bd, ed, fc) => {
+const getPostTripDB = (Title, Region, beginDate, endDate, fullCost) => {
   
   return function (dispatch, getState, { history }) {
-    
     let post_list = [];
     // if (text === "") {
       axios({
         method: "POST",
         url: "/api/v1/trips",
-        data: {
-          userId : localStorage.getItem("id"), //session
-          title : title,
-          beginDate : bd,
-          endDate : ed,
-          fullCost : fc,
-          
-          
-        }
-      })
-      .then((docs) => {
-        // docs=api를 가져온 값
         
-        console.log(docs.data);
-        const post_list = docs.data;
+        data: {
+          // user_id: 8,
+          user_id : parseInt(localStorage.getItem("id")), //session "id"
+          title: Title,
+          region: Region,
+          begin_date: beginDate,
+          end_date: endDate,
+          // begin_date: beginDate,
+          // end_date: endDate,
+          full_cost: parseInt(fullCost),
+          // full_cost : parseInt(fc),
+          tag_name_list: []
+        }, 
+      })
+      .then((res) => {
+        // docs=api를 가져온 값
+        localStorage.setItem("trip_id", res.data.data.id)
+        console.log(localStorage.getItem(res.data.data.id));
+        // console.log(docs.data);
+        // const post_list = docs.data;
         // console.log(post_list);
-        history.push("/postList");
+        history.push("/PostMain");
         window.alert("게시물 등록 완료");
 
-        dispatch(setPost(post_list));
+        // dispatch(setPost(post_list));
       })
       .catch((err) => {
+        console.log(err);
         window.alert("게시물 등록 실패", err);
       });
     // } else {
@@ -79,11 +85,11 @@ const getPostTripDB = (title, bd, ed, fc) => {
 };
 
 // 게시물 보여주기
-const getOnePostDB = (momentId) => { // 게시판에 게시물 목록 보여주기, PostList에 작성
+const getOnePostDB = (tripId) => { // 게시판에 게시물 목록 보여주기, PostList에 작성
   return function (dispatch, getState, { history }) {
     axios({
       method: "get",
-      url: "/api/v1/trips/${momentId}",
+      url: `/api/v1/posts/${tripId}`,
       
     }).then((docs) => {
       const onePost = docs.data;
@@ -93,16 +99,16 @@ const getOnePostDB = (momentId) => { // 게시판에 게시물 목록 보여주�
 };
 
 // 게시글 본문
-const getPostMomentDB = (l_id, t_id, moment, ct) => {
+const getPostMomentDB = (t_id, moment, ct) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "post",
       url: "/api/v1/moments",
       data: {
-        location_id : l_id, //0
-        trip_id : t_id, //0
+        location_id : 1, //0
+        trip_id : parseInt(localStorage.getItem("trip_id")), //0
         content : moment,
-        Cost : ct, // 0
+        cost : ct, // 0
       }
     })
     .then((docs) => {
