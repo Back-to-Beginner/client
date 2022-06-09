@@ -13,7 +13,6 @@ import PostView from "../pages/PostView";
 import PostMain from "../pages/PostMain";
 import Withdraw from "../pages/Withdraw";
 import PostUp from "../pages/PostUp";
-import PostDetail from "../pages/PostDetail";
 import Login from "../pages/Login";
 import Mypage from "../pages/Mypage";
 import Signup from "../pages/Signup";
