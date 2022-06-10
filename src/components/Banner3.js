@@ -23,7 +23,7 @@ const Banner3 = () => {
             나만의 여행계획을 세워보세요</P>
             <Button
              onClick={() => {
-              history.push("/PostList");
+              history.push("/PostMain");
             }}
             >
             <h2>사람들의 다양한 여정 구경하기<br />
