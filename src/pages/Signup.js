@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+
 const Signup = (props) => {
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
@@ -19,13 +19,13 @@ const Signup = (props) => {
     }
     console.log(id, pwd, user_name, birth, add);
     dispatch(userActions.signupDB(id, pwd, user_name));
-    console.log("test 회원가입 완료");
+    console.log("test 회원가입  완료");
   };
   return (
     <React.Fragment>
       <Div>
         <h1 align='center'> 회원가입</h1>
-        <P>메일</P>
+        <P>메일  <br></br>(메일 형식으로 입력해주세요)</P>
         <Input
           onChange={(e) => {
             setId(e.target.value);
