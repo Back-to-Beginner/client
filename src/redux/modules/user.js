@@ -83,7 +83,7 @@ const signupDB = (id, pwd, nickname) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "api/v1/users",
+      url: '/api/v1/users',
       data: {
         email: id,
         name: nickname,
