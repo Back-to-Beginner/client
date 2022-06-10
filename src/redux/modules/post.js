@@ -59,18 +59,7 @@ const getPostTripDB = (Title, Region, beginDate, endDate, fullCost) => {
         console.log(err);
         window.alert("게시물 등록 실패", err);
       });
-    // } else {
-    //    axios({
-    //      method: "POST",
-    //      // url: `http://54.180.112.53:8080/api/region/${text}`,
-    //    }).then((docs) => {
-    //      // docs=api를 가져온 값
-    //      // console.log(docs.data);
-    //      const post_list = docs.data;
-    //      // console.log(post_list);
-    //      dispatch(setPost(post_list));
-    //    });
-    // // }
+    
   };
 };
 
