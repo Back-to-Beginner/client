@@ -13,11 +13,10 @@ import PostView from "../pages/PostView";
 import PostMain from "../pages/PostMain";
 import Withdraw from "../pages/Withdraw";
 import PostUp from "../pages/PostUp";
+import PostUp2 from "../pages/PostUp2";
 import Login from "../pages/Login";
 import Mypage from "../pages/Mypage";
 import Signup from "../pages/Signup";
-
-
 import "semantic-ui-css/semantic.min.css";
 
 function App() {
@@ -31,6 +30,7 @@ function App() {
         <Route path="/Withdraw" exact component={Withdraw} />
         <Route path="/ChangeInfo" exact component={ChangeInfo} />
         <Route path="/PostUp" exact component={PostUp} />
+        <Route path="/PostUp2" exact component={PostUp2} />
         <Route path="/PostView/:no" exact component={PostView} />
         <Route path="/mypage" exact component={Mypage} />
         <Route path="/login" exact component={Login} />
