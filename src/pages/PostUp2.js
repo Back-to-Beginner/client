@@ -53,6 +53,15 @@ return (
         <Input2 onChange={changeMoment}></Input2> 
 
           <Button onClick={Postup2}>등록 하기</Button>
+
+          <Button
+          onClick={() => {
+          history.push("/PostUp2");
+        }}
+      >
+        추가작성
+      </Button>
+
           <Button
           onClick={() => {
           history.push("/PostMain");
