@@ -14,12 +14,6 @@ import { actionCreators as postActions } from "../redux/modules/post";
    const [fullCost, setFullCost] = React.useState(""); 
   //  const [tNL, setTNL] = React.useState("");
 
-  const [l_id, setLocation_id] = React.useState("");
-  //  const [t_id, setTrip_id] = React.useState("");
-   const [moment, setMoment] = React.useState("");
-   const [ct, setCost] = React.useState("");
-
-   
    const changeTitle = (e) => { //제목
      console.log(e.target.value);
      setTitle(e.target.value);
@@ -45,41 +39,20 @@ import { actionCreators as postActions } from "../redux/modules/post";
   //    setTNL(e.target.value);
   //  };
 
-   const changeLocation_id = (e) => {
-     console.log(e.target.value);
-     setLocation_id(e.target.value);
-   };
-
-  //  const changeTrip_id = (e) => {
-  //    console.log(e.target.value);
-  //    setTrip_id(e.target.value);
-  //  };
-
-   const changeMoment = (e) => { // 게시물 본문
-     console.log(e.target.value);
-     setMoment(e.target.value);
-   };
-
    const changeFullCost = (e) => { // 여행 총 경비
      console.log(e.target.value);
      setFullCost(e.target.value);
    };
 
-   const changeCost = (e) => { // 항공비를 제외한 경비
-    console.log(e.target.value);
-    setCost(parseInt(e.target.value, 10));
-  };
 
-   const postUp = () => { // 제목이 비어있을 경우
+   const PostUp = () => { // 제목이 비어있을 경우
      if (Title=== "") {
        window.alert("제목이 비어있습니다.");
        return;
      }
+
      console.log(Title, Region, beginDate, endDate, fullCost);
-     console.log(l_id, moment, ct);
      dispatch(postActions.getPostTripDB(Title, Region, beginDate, endDate, fullCost));
-     dispatch(postActions.getPostMomentDB(l_id, moment, ct));
-     
      console.log(localStorage.getItem("id"));
      console.log("등록 성공");
    };
@@ -94,37 +67,16 @@ import { actionCreators as postActions } from "../redux/modules/post";
             {/* getPostTripDB */}
              <P>제목</P>
             <Input onChange={changeTitle}></Input>
-            <P>지역</P>
+            <P>국가(여행지역)</P>
             <Input onChange={changeRegion}></Input>
-            <P>여행시작일자</P>
+            <P>여행시작일자 <br></br>(ex : 2020-01-01)</P>
             <Input onChange={changebeginDate}></Input>
-            <P>여행종료일자</P>
+            <P>여행종료일자 <br></br>(ex : 2020-01-01)</P>
             <Input onChange={changeendDate}></Input>
-            <P>총 경비</P>
+            <P>총 경비 <br></br>(숫자로 입력해주세요)</P>
             <Input onChange={changeFullCost}></Input>
-            {/* getPostMomentDB */}
-            <P>항공비 제외 경비</P>
-            <Input onChange={changeCost}></Input>
-            <P>본문</P>
-            <Input2 onChange={changeMoment}></Input2> 
-             {/* <P>국가</P>
-            <Input
-              onChange={onChange} value={text}/>
-              <P>여행지</P>
-            <Input
-              onChange={onChange} value={text}/>
-              <P>여행경비</P>
-            <Input
-              onChange={onChange} value={text}/>
-              <P>항공사</P>
-            <Input
-              onChange={onChange} value={text}/>
-            <P>내용</P>
-            <Input2
-              onChange={onChange} value={text}/>  */}
-              {/* <P>태그</P>
-              <Input3 onChange={changetNL}></Input3> */}
-              <Button onClick={postUp}>등록하기</Button>
+
+              <Button onClick={PostUp}>게시물 상세내용 등록하기</Button>
               <Button
               onClick={() => {
               history.push("/PostMain");
