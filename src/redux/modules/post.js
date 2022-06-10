@@ -16,17 +16,7 @@ const initialState = {
   post: [],
 };
 
-// const initialPost = {
-//   daangnProductId: "0",
-//   title: "실내 자전거",
-//   img:
-//     "https://dnvefa72aowie.cloudfront.net/origin/article/202104/bce02f7c25d41ea2f758c3322de4596b9768b7fc8822ed6ab1a184fd232c50ce.webp?q=82&s=300x300&t=crop",
-//   price: "10,000원",
-//   region: "경기도 용인시 수지구 죽전동",
-//   like: "관심:3",
-//   chat: "채팅:5",
-// };
-// getPostDB, (text = "")
+
 
 // 게시물 등록
 
@@ -60,7 +50,7 @@ const getPostTripDB = (Title, Region, beginDate, endDate, fullCost) => {
         // console.log(docs.data);
         // const post_list = docs.data;
         // console.log(post_list);
-        history.push("/PostMain");
+        history.push("/PostUp2");
         window.alert("게시물 등록 완료");
 
         // dispatch(setPost(post_list));
@@ -116,15 +106,17 @@ const getPostMomentDB = (t_id, moment, ct) => {
       // console.log(docs.data);
       const post_list = docs.data;
       // console.log(post_list);
+      history.push("/PostMain");
       window.alert("본문 등록 완료");
 
-      dispatch(setPost(post_list));
+      // dispatch(setPost(post_list));
     })
     .catch((err) => {
       window.alert("본문 등록 실패", err);
     });
   };
 };
+
 
 export default handleActions(
   {
