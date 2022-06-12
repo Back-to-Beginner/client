@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {getPostByNo} from '../Data';
 import './Post.css';
 import axios from "axios";
 
 
 const PostView = ({history, location, match}) => {
-    const [data, setData] = useState({});
+    const [data, setData] = useState(null);
 
     const {no: id} = match.params;
 
     useEffect(() => {
-        console.log(`/api/v1/posts/${parseInt(id)}`);
-        axios.get(`/api/v1/posts/${parseInt(id)}`)
+        axios.get(`/api/v1/posts/${id}`)
             .then(res => {
-                console.log(res.data);
-                setData(res.data.data);
-            })
-        // setData(getPostByNo(no));
+                    console.log(res.data);
+                    setData(res.data.data);
+                }
+            ).catch(err => {
+            console.log(err);
+        })
     }, []);
 
     return (
@@ -25,7 +25,7 @@ const PostView = ({history, location, match}) => {
 
             <div className="post-view-wrapper">
                 {
-                    data ? (
+                    data !== null ? (
                         <>
                             <div className="post-view-row">
                                 <label>제목</label>
