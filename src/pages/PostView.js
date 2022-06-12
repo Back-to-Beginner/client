@@ -7,10 +7,11 @@ import axios from "axios";
 const PostView = ({history, location, match}) => {
     const [data, setData] = useState({});
 
-    const {no} = match.params;
+    const {no: id} = match.params;
 
     useEffect(() => {
-        axios.get(`/api/v1/trips/${no}`)
+        console.log(`/api/v1/posts/${parseInt(id)}`);
+        axios.get(`/api/v1/posts/${parseInt(id)}`)
             .then(res => {
                 console.log(res.data);
                 setData(res.data.data);
@@ -27,29 +28,47 @@ const PostView = ({history, location, match}) => {
                     data ? (
                         <>
                             <div className="post-view-row">
-                                <label>게시글 번호</label>
-                                <label>{data.id}</label>
-                            </div>
-                            <div className="post-view-row">
                                 <label>제목</label>
-                                <label>{data.title}</label>
+                                <label>{data.trip.title}</label>
                             </div>
                             <div className="post-view-row">
                                 <label>시작일</label>
-                                <label>{data.begin_date}</label>
+                                <label>{data.trip.begin_date}</label>
                             </div>
                             <div className="post-view-row">
                                 <label>종료일</label>
-                                <label>{data.end_date}</label>
+                                <label>{data.trip.end_date}</label>
                             </div>
                             <div className="post-view-row">
-                                <label>비용</label>
-                                <div>
-                                    {
-                                        data.fullCost
-                                    }
-                                </div>
+                                <label>총 경비</label>
+                                <label>{data.trip.full_cost}만 원</label>
                             </div>
+                            {data.moments.map((moment, index) => {
+                                return (
+                                    <>
+                                        <hr/>
+                                        <div className="post-view-row">
+                                            <label>지역</label>
+                                            <label>{moment.location.region}</label>
+                                        </div>
+                                        <div className="post-view-row">
+                                            <label>도시</label>
+                                            <label>{moment.location.name}</label>
+                                        </div>
+                                        <div className="post-view-row">
+                                            <label>후기</label>
+                                            <label>{moment.content}</label>
+                                        </div>
+                                        <div className="post-view-row">
+                                            <label>경비</label>
+                                            <label>{moment.cost}만 원</label>
+                                        </div>
+                                    </>
+                                );
+                            })
+                            }
+
+
                         </>
                     ) : '해당 게시글을 찾을 수 없습니다.'
                 }

@@ -9,6 +9,7 @@ import CommonTable from '../components/CommonTable';
 import CommonTableColumn from '../components/CommonTableColumn';
 import CommonTableRow from '../components/CommonTableRow';
 import { postList } from '../Data';
+import axios from "axios";
 
 const PostList = props => {
   
@@ -43,25 +44,31 @@ const PostList = props => {
 
   useEffect(() => {
     window.scrollTo(0,0);
-    setDataList(postList);
-  }, [ ])
 
-  dispatch(postActions.getOnePostDB());
+      axios.get(`/api/v1/trips`)
+          .then(res => {
+              console.log(res.data);
+              setDataList(res.data.data);
+          })
+  }, [])
+
+  dispatch(postActions.getAllPostDB());
  
 
   return (
     <>
-      <CommonTable headersName={['글번호', '제목', '등록일', '조회수']}>
+      <CommonTable headersName={['글번호', '제목', '경비', '작성자']}>
         {
           dataList ? dataList.map((item, index) => {
             return (
               <CommonTableRow key={index}>
-                <CommonTableColumn>{ item.no }</CommonTableColumn>
+                <CommonTableColumn>{ item.id }</CommonTableColumn>
                 <CommonTableColumn>
-                  <Link to={`/postView/${item.no}`}>{ item.title }</Link>
+                  <Link to={`/postView/${item.id}`}>{ item.title }</Link>
                 </CommonTableColumn>
-                <CommonTableColumn>{ item.createDate }</CommonTableColumn>
-                <CommonTableColumn>{ item.readCount }</CommonTableColumn>
+                {/*<CommonTableColumn>{ item.region }</CommonTableColumn>*/}
+                <CommonTableColumn>{ item.full_cost }</CommonTableColumn>
+                <CommonTableColumn>{ item.user_id }</CommonTableColumn>
               </CommonTableRow>
             )
           }) : ''

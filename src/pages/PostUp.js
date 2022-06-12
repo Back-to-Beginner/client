@@ -7,11 +7,11 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
  const Postup = (props) => {
    const dispatch = useDispatch();
-   const [Title, setTitle] = React.useState("");
-   const [Region, setRegion] = React.useState("");
+   const [title, setTitle] = React.useState("");
+   const [region, setRegion] = React.useState("");
    const [beginDate, setbeginDate] = React.useState("");
    const [endDate, setendDate] = React.useState("");
-   const [fullCost, setFullCost] = React.useState(""); 
+   const [fullCost, setFullCost] = React.useState("");
   //  const [tNL, setTNL] = React.useState("");
 
    const changeTitle = (e) => { //제목
@@ -46,24 +46,24 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 
    const PostUp = () => { // 제목이 비어있을 경우
-     if (Title=== "") {
+     if (title=== "") {
        window.alert("제목이 비어있습니다.");
        return;
      }
 
-     console.log(Title, Region, beginDate, endDate, fullCost);
-     dispatch(postActions.getPostTripDB(Title, Region, beginDate, endDate, fullCost));
+     console.log(title, region, beginDate, endDate, fullCost);
+     dispatch(postActions.postTripDB(title, region, beginDate, endDate, fullCost));
      console.log(localStorage.getItem("id"));
      console.log("등록 성공");
    };
- 
-   
+
+
     return (
         <React.Fragment>
           <Div>
             <h1 align="center"> 여정 작성</h1>
-            
-            
+
+
             {/* getPostTripDB */}
              <P>제목</P>
             <Input onChange={changeTitle}></Input>
@@ -76,7 +76,11 @@ import { actionCreators as postActions } from "../redux/modules/post";
             <P>총 경비 <br></br>(숫자로 입력해주세요)</P>
             <Input onChange={changeFullCost}></Input>
 
-              <Button onClick={PostUp}>게시물 상세내용 등록하기</Button>
+              <Button onClick={() => {
+                  PostUp();
+                  history.push("/PostUp");
+                  sessionStorage.momentSequence = 0;
+              }}>게시물 상세내용 등록하기</Button>
               <Button
               onClick={() => {
               history.push("/PostMain");
@@ -90,14 +94,14 @@ import { actionCreators as postActions } from "../redux/modules/post";
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
-              }} 
+              }}
             >
-              
+
             </div>
           </Div>
         </React.Fragment>
       );
-    
+
  }
 
 
